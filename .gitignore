@@ -1,0 +1,9 @@
+#Idea files and folders
+.idea/
+spring.iml
+
+#Java tmp folders:
+target/
+
+#MacOs tmp files:
+.DS_Store

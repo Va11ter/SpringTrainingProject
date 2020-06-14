@@ -1,4 +1,7 @@
 package com.niit.BookStore.repository;
 
-public interface ItemRepository {
+import com.niit.BookStore.entiny.Item;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ItemRepository extends JpaRepository<Item, Long> {
 }

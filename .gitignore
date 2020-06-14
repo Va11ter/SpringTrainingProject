@@ -7,3 +7,6 @@ target/
 
 #MacOs tmp files:
 .DS_Store
+
+#tmp folder
+tmp/

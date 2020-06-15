@@ -1,15 +1,12 @@
 package com.niit.BookStore.entiny;
 
-import com.sun.xml.bind.v2.TODO;
-import org.hibernate.engine.internal.Cascade;
-
 import javax.persistence.*;
 import java.util.List;
 
 
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "cart")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,5 +41,7 @@ public class Order {
         this.item = item;
     }
 
+    public void addItem(Item item) {
+        this.item.add(item);
+    }
 }
-

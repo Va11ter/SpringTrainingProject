@@ -1,9 +1,5 @@
 package com.niit.BookStore.entiny;
 
-
-import com.sun.tools.javac.jvm.Items;
-import org.apache.catalina.User;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,8 +15,8 @@ public class WishList {
     private Person person;
 
     //TODO: Find How to name variable plural, without renaming columns
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="order_item")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="wish_list_item")
     private List<Item> item;
 
 

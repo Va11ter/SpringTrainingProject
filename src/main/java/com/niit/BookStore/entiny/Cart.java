@@ -16,8 +16,8 @@ public class Cart {
     private Person person;
 
     //TODO: Find How to name variable plural, without renaming columns
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="order_item")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="cart_item")
     private List<Item> item;
 
 

@@ -1,4 +1,4 @@
-package com.niit.BookStore.service;
+package com.niit.BookStore.service.impl;
 
 import com.niit.BookStore.dto.ItemDto;
 import com.niit.BookStore.dto.OrderDto;
@@ -6,6 +6,7 @@ import com.niit.BookStore.entiny.Item;
 import com.niit.BookStore.entiny.Order;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.ItemRepository;
+import com.niit.BookStore.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;

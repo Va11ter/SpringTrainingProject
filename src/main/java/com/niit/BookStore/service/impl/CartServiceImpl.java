@@ -1,9 +1,10 @@
-package com.niit.BookStore.service;
+package com.niit.BookStore.service.impl;
 
 import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.CartRepository;
+import com.niit.BookStore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;

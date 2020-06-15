@@ -1,7 +1,6 @@
 package com.niit.BookStore.entiny;
 
 import javax.persistence.*;
-import java.awt.*;
 
 @Entity
 @Table(name = "person")

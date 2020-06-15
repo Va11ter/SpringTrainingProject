@@ -1,8 +1,5 @@
 package com.niit.BookStore.entiny;
 
-import com.sun.xml.bind.v2.TODO;
-import org.hibernate.engine.internal.Cascade;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class Order {
     private Person person;
 
     //TODO: Find How to name variable plural, without renaming columns
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name="order_item")
     private List<Item> item;
 

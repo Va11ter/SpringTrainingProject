@@ -1,9 +1,10 @@
-package com.niit.BookStore.service;
+package com.niit.BookStore.service.impl;
 
 import com.niit.BookStore.dto.WishListDto;
 import com.niit.BookStore.entiny.WishList;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.WishListRepository;
+import com.niit.BookStore.service.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;

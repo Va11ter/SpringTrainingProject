@@ -1,40 +1,39 @@
 package com.niit.BookStore.entiny;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "cart")
 public class Cart extends EntityBase{
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
-    //TODO: Find How to name variable plural, without renaming columns
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name="cart_item",
-            JoinColumns = @JoinColumn("cart_id"),
-            inverseJoinColumns = @JoinColumn("item_id"))
-    private List<Item> item;
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
+    private Set<Item> items;
 
-    public Person getPersonId() {
+    public Person getPerson() {
         return person;
     }
 
-    public void setPersonId(Person person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 
-    public List<Item> getItems() {
-        return item;
+    public Set<Item> getItems() {
+        return items;
     }
 
-    public void setItems(List<Item> item) {
-        this.item = item;
+    public void setItems(Set<Item> item) {
+        this.items = item;
     }
 
     public void addItem(Item item) {
-        this.item.add(item);
+        this.items.add(item);
     }
 }

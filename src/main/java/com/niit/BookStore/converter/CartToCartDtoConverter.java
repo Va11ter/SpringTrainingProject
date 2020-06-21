@@ -10,7 +10,7 @@ public class CartToCartDtoConverter implements Converter<Cart, CartDto> {
     @Override
     public CartDto convert(Cart source) {
         CartDto target = new CartDto();
-        target.setPersonId(source.getPersonId());
+        target.setPerson(source.getPerson());
         target.setItems(source.getItems());
         target.setId(source.getId());
         return target;

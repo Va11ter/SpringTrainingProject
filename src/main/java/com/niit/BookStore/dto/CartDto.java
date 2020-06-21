@@ -5,15 +5,15 @@ import com.niit.BookStore.entiny.Item;
 import com.niit.BookStore.entiny.Person;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 public class CartDto implements Serializable {
     @JsonProperty("id")
     private Long id;
     @JsonProperty("person_id")
-    private Person personId;
+    private Person person;
     @JsonProperty("items")
-    private List<Item> items;
+    private Set<Item> items;
 
     public Long getId() {
         return id;
@@ -23,19 +23,19 @@ public class CartDto implements Serializable {
         this.id = id;
     }
 
-    public Person getPersonId() {
-        return personId;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(Person personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(Set<Item> items) {
         this.items = items;
     }
 

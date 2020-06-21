@@ -28,7 +28,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartDto getCartById(Long id) {
-        Cart cart = cartRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("NOT_FOUND_EXCEPTION_MESSAGE"));
+        Cart cart = cartRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         return conversionService.convert(cart, CartDto.class);
     }
 
@@ -44,7 +44,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepository.findById(cartDto.getId()).orElseThrow(
                 ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         cart.setItems(cartDto.getItems());
-        cart.setPersonId(cartDto.getPersonId());
+        cart.setPerson(cartDto.getPerson());
         return conversionService.convert(cart, CartDto.class);
     }
 

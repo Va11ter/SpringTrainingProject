@@ -5,21 +5,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "person")
 public class Person extends EntityBase {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String firstName;
     private String lastName;
+    private String email;
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @JoinColumn(name="address_id", referencedColumnName = "id")
+    private Address address;
 
     @Override
     public String toString() {
         return String.format("Person[id=%s, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
-    }
-
-    public Long getId(){
-        return id;
+                getId(), firstName, lastName);
     }
 
     public String getFirstName(){
@@ -36,5 +32,13 @@ public class Person extends EntityBase {
 
     public String getLastName(){
         return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -1,29 +1,37 @@
 package com.niit.BookStore.entiny;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne(cascade = CascadeType.ALL)
+public class Order extends EntityBase {
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
-    //TODO: Find How to name variable plural, without renaming columns
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="order_item")
-    private List<Item> item;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Address address;
 
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "order_item",
+            joinColumns=@JoinColumn("order_id"),
+            inverseJoinColumns = @JoinColumn("item_id"))
+    private Set<Item> item;
 
-    public Long getId() {
-        return id;
-    }
+    @Enumerated(EnumType.STRING)
+    private OrderState state;
+
+    @Column(length = 10, precision = 2)
+    private BigDecimal total;
+
+    @Column(name = "placed_on")
+    private LocalDateTime placedOn;
 
     public Person getPersonId() {
         return person;
@@ -33,13 +41,36 @@ public class Order {
         this.person = person;
     }
 
-    public List<Item> getItems() {
+    public Set<Item> getItems() {
         return item;
     }
 
-    public void setItems(List<Item> item) {
+    public void setItems(Set<Item> item) {
         this.item = item;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public OrderState getState() {
+        return state;
+    }
+
+    public void setState(OrderState state) {
+        this.state = state;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 }
 

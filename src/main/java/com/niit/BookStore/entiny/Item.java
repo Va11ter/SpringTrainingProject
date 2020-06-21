@@ -7,18 +7,11 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "item")
 public class Item extends EntityBase{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String name;
     @Column(length = 10, precision = 2)
     private BigDecimal price;
     private String description;
     private Integer count;
-
-    public Long getId() {
-        return id;
-    }
 
     public String getName() {
         return name;

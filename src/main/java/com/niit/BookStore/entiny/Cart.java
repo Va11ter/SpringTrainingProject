@@ -6,24 +6,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "cart")
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Cart extends EntityBase{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
     //TODO: Find How to name variable plural, without renaming columns
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="cart_item")
+    @JoinTable(name="cart_item",
+            JoinColumns = @JoinColumn("cart_id"),
+            inverseJoinColumns = @JoinColumn("item_id"))
     private List<Item> item;
-
-
-    public Long getId() {
-        return id;
-    }
 
     public Person getPersonId() {
         return person;

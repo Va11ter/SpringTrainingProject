@@ -1,11 +1,8 @@
 package com.niit.BookStore.controller;
 
 import com.niit.BookStore.dto.ItemDto;
-import com.niit.BookStore.dto.PersonDto;
-import com.niit.BookStore.repository.ItemRepository;
 import com.niit.BookStore.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

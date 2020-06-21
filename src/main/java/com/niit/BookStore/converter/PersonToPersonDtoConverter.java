@@ -10,10 +10,10 @@ public class PersonToPersonDtoConverter implements Converter<Person, PersonDto> 
 
     @Override
     public PersonDto convert(Person person) {
-        PersonDto target = new PersonDto();
-        target.setId(person.getId());
-        target.setFirstName(person.getFirstName());
-        target.setLastName(person.getLastName());
-        return target;
+        return PersonDto.builder()
+                .id(person.getId())
+                .firstName(person.getFirstName())
+                .lastName(person.getLastName())
+                .email(person.getEmail()).build();
     }
 }

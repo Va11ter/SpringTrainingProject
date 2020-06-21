@@ -46,6 +46,7 @@ public class PersonServiceImpl implements PersonService {
                 ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         person.setLastName(personDto.getLastName());
         person.setFirstName(personDto.getFirstName());
+        person.setEmail(personDto.getEmail());
         return conversionService.convert(person, PersonDto.class);
     }
 

@@ -15,6 +15,7 @@ public class PersonDtoToPersonConverter implements Converter<PersonDto, Person> 
         Person target = new Person();
         target.setFirstName(personDto.getFirstName());
         target.setLastName(personDto.getLastName());
+        target.setEmail(personDto.getEmail());
         return target;
     }
 }

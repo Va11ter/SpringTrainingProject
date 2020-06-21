@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(orderDto.getId()).orElseThrow(
                 ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         order.setItems(orderDto.getItems());
-        order.setPersonId(orderDto.getPersonId());
+        order.setPerson(orderDto.getPerson());
         return conversionService.convert(order, OrderDto.class);
     }
 

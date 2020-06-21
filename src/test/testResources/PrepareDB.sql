@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS promo(
     code VARCHAR(25),
     start_date TIMESTAMP,
     end_date TIMESTAMP,
-    active boolean default true,
+    is_active boolean default true,
     discount SMALLINT,
     description TEXT,
 

@@ -21,6 +21,7 @@ public class PromoDto implements Serializable{
     private LocalDateTime startDate;
     @JsonProperty("end_date")
     private LocalDateTime endDate;
+    @JsonProperty("is_active")
     private boolean isActive;
     private Integer discount;
 }

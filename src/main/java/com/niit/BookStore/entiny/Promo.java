@@ -13,6 +13,7 @@ public class Promo extends EntityBase{
     private LocalDateTime startDate;
     @Column(name = "end_date")
     private LocalDateTime endDate;
+    @Column(name = "is_active")
     private boolean isActive;
     // Discount in %
     private Integer discount;

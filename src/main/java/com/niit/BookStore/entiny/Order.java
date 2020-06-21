@@ -8,20 +8,20 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "orders")
+@Table(name = "`order`")
 public class Order extends EntityBase {
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "order_item",
-            joinColumns=@JoinColumn("order_id"),
-            inverseJoinColumns = @JoinColumn("item_id"))
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> item;
 
     @Enumerated(EnumType.STRING)
@@ -37,7 +37,7 @@ public class Order extends EntityBase {
         return person;
     }
 
-    public void setPersonId(Person person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 

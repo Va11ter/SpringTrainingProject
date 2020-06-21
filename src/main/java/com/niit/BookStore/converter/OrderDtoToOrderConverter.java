@@ -10,7 +10,7 @@ public class OrderDtoToOrderConverter implements Converter<OrderDto, Order> {
     @Override
     public Order convert(OrderDto source) {
         Order target = new Order();
-        target.setPersonId(source.getPersonId());
+        target.setPerson(source.getPerson());
         target.setItems(source.getItems());
         return target;
     }

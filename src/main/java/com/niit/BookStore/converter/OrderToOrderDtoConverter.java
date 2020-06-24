@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
     @Override
     public OrderDto convert(Order source) {
-        OrderDto target = new OrderDto();
-        target.setPersonId(source.getPersonId());
-        target.setItems(source.getItems());
-        target.setId(source.getId());
-        return target;
+        return OrderDto.builder()
+                .id(source.getId())
+                .person(source.getPersonId())
+                .items(source.getItems())
+                .build();
     }
 }

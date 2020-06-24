@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 public class ItemToItemDtoConverter implements Converter<Item, ItemDto>{
     @Override
     public ItemDto convert(Item source) {
-        ItemDto target = new ItemDto();
-        target.setId(source.getId());
-        target.setDescription(source.getDescription());
-        target.setName(source.getName());
-        target.setPrice(source.getPrice());
-        target.setCount(source.getCount());
-        return target;
+        return ItemDto.builder()
+                .id(source.getId())
+                .description(source.getDescription())
+                .name(source.getName())
+                .price(source.getPrice())
+                .count(source.getCount())
+                .build();
     }
 }

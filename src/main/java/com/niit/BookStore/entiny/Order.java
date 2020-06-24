@@ -1,5 +1,10 @@
 package com.niit.BookStore.entiny;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,6 +14,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "`order`")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order extends EntityBase {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -22,7 +31,7 @@ public class Order extends EntityBase {
     @JoinTable(name = "order_item",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private Set<Item> item;
+    private Set<Item> items;
 
     @Enumerated(EnumType.STRING)
     private OrderState state;
@@ -33,44 +42,5 @@ public class Order extends EntityBase {
     @Column(name = "placed_on")
     private LocalDateTime placedOn;
 
-    public Person getPersonId() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Set<Item> getItems() {
-        return item;
-    }
-
-    public void setItems(Set<Item> item) {
-        this.item = item;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public OrderState getState() {
-        return state;
-    }
-
-    public void setState(OrderState state) {
-        this.state = state;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
 }
 

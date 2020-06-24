@@ -1,11 +1,18 @@
 package com.niit.BookStore.entiny;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "cart")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "items")
 public class Cart extends EntityBase{
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -16,24 +23,4 @@ public class Cart extends EntityBase{
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items;
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Set<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(Set<Item> item) {
-        this.items = item;
-    }
-
-    public void addItem(Item item) {
-        this.items.add(item);
-    }
 }

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 public class CartDtoToCartConverter implements Converter<CartDto, Cart> {
     @Override
     public Cart convert(CartDto source) {
-        Cart target = new Cart();
-        target.setPerson(source.getPerson());
-        target.setItems(source.getItems());
-        return target;
+        return Cart.builder()
+                .person(source.getPerson())
+                .items(source.getItems())
+                .build();
     }
 }

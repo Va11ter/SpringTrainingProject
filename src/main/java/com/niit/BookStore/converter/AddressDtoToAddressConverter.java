@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 public class AddressDtoToAddressConverter implements Converter<AddressDto, Address> {
     @Override
     public Address convert(AddressDto source) {
-        Address target = new Address();
-        target.setAdditionalInfo(source.getAdditionalInfo());
-        target.setPostalCode(source.getPostalCode());
-        target.setCountry(source.getCountry());
-        target.setCity(source.getCity());
-        target.setStreet(source.getStreet());
-        target.setBuilding(source.getBuilding());
-        target.setApartment(source.getApartment());
-        return target;
+        return Address.builder()
+                .postalCode(source.getPostalCode())
+                .country(source.getCountry())
+                .city(source.getCity())
+                .street(source.getStreet())
+                .building(source.getBuilding())
+                .apartment(source.getApartment())
+                .additionalInfo(source.getAdditionalInfo())
+                .build();
     }
 }

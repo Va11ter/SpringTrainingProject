@@ -11,11 +11,11 @@ import java.lang.annotation.Target;
 public class PersonDtoToPersonConverter implements Converter<PersonDto, Person> {
 
     @Override
-    public Person convert(PersonDto personDto) {
-        Person target = new Person();
-        target.setFirstName(personDto.getFirstName());
-        target.setLastName(personDto.getLastName());
-        target.setEmail(personDto.getEmail());
-        return target;
+    public Person convert(PersonDto source) {
+        return Person.builder()
+                .email(source.getEmail())
+                .firstName(source.getFirstName())
+                .lastName(source.getLastName())
+                .build();
     }
 }

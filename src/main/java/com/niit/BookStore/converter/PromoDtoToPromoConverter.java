@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 public class PromoDtoToPromoConverter implements Converter<PromoDto, Promo> {
     @Override
     public Promo convert(PromoDto source) {
-        Promo promo = new Promo();
-        promo.setActive(source.isActive());
-        promo.setCode(source.getCode());
-        promo.setDescription(source.getDescription());
-        promo.setEndDate(source.getEndDate());
-        promo.setStartDate(source.getStartDate());
-        promo.setDiscount(source.getDiscount());
-        return promo;
+        return Promo.builder()
+                .code(source.getCode())
+                .description(source.getDescription())
+                .startDate(source.getStartDate())
+                .endDate(source.getEndDate())
+                .discount(source.getDiscount())
+                .isActive(source.isActive())
+                .build();
     }
 }

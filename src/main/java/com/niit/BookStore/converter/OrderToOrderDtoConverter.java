@@ -11,7 +11,7 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
     public OrderDto convert(Order source) {
         return OrderDto.builder()
                 .id(source.getId())
-                .person(source.getPersonId())
+                .person(source.getPerson())
                 .items(source.getItems())
                 .build();
     }

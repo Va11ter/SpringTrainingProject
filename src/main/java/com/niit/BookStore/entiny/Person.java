@@ -11,7 +11,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"address"})
+@ToString(exclude = {"address", "wishListItems"})
+@EqualsAndHashCode(exclude = {"address", "wishListItems"})
 public class Person extends EntityBase {
     @Column(name = "first_name")
     private String firstName;
@@ -26,6 +27,6 @@ public class Person extends EntityBase {
     @JoinTable(name = "wish_list",
     joinColumns = @JoinColumn(name="person_id"),
     inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private Set<Item> items;
+    private Set<Item> wishListItems;
 
 }

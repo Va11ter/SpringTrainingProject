@@ -2,6 +2,7 @@ package com.niit.BookStore.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.niit.BookStore.entiny.Item;
+import com.niit.BookStore.entiny.OrderItem;
 import com.niit.BookStore.entiny.Person;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,11 +20,11 @@ public class OrderDto implements Serializable {
     @JsonProperty("id")
     private Long id;
     @JsonProperty("person")
-    private Person person;
+    private PersonDto personDto;
     @JsonProperty("items")
-    private Set<Item> items;
+    private Set<OrderItemDto> orderItemDto;
 
-    public void addItem(Item item){
-        this.items.add(item);
+    public void addItem(OrderItemDto orderItemDto){
+        this.orderItemDto.add(orderItemDto);
     }
 }

@@ -1,7 +1,10 @@
 package com.niit.BookStore.service.impl;
 
 import com.niit.BookStore.dto.OrderDto;
+import com.niit.BookStore.dto.OrderItemDto;
 import com.niit.BookStore.entiny.Order;
+import com.niit.BookStore.entiny.OrderItem;
+import com.niit.BookStore.entiny.Person;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.OrderRepository;
 import com.niit.BookStore.service.OrderService;
@@ -42,9 +45,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto updateOrder(Long id, OrderDto orderDto) {
         Order order = orderRepository.findById(orderDto.getId()).orElseThrow(
-                ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
-        order.setItems(orderDto.getItems());
-        order.setPerson(orderDto.getPerson());
+                () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
+        order.setOrderItems(orderDto.getOrderItemDto()
+                .stream()
+                .map((OrderItemDto orderItemDto) -> conversionService.convert(orderItemDto, OrderItem.class))
+                .collect(Collectors.toSet()));
+        order.setPerson(conversionService.convert(orderDto.getPersonDto(), Person.class));
         return conversionService.convert(order, OrderDto.class);
     }
 
@@ -52,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(Long id) {
         if (orderRepository.existsById(id)) {
             orderRepository.deleteById(id);
-        }else{
+        } else {
             throw new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE);
         }
     }

@@ -3,6 +3,7 @@ package com.niit.BookStore.entiny;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -21,7 +22,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "category")
+@ToString(exclude = "items")
+@EqualsAndHashCode(exclude = "items")
 public class Category extends EntityBase{
     private String name;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

@@ -44,10 +44,28 @@ VALUES (1, 1),
        (3, 2),
        (2, 1);
 
-INSERT INTO promo (code, start_date, end_date, discount)
-VALUES ('MayDay', DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 2),
-       ('MegaSail',DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 5),
-       ('t_oidar', DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 10);
+INSERT INTO promo (code, start_date, end_date, discount, type)
+VALUES ('MayDay', DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 2, 'COMMON'),
+       ('MegaSail',DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 5, 'COMMON'),
+       ('t_oidar', DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 10, 'COMMON');
+
+INSERT INTO promo (code, start_date, end_date, discount, type, person_id)
+VALUES ('RandomGenerated1', DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 2, 'PERSONAL', 1),
+       ('RandomGenerated2',DATE_SUB(NOW(), INTERVAL 1 MONTH ), DATE_ADD(NOW(), INTERVAL 1 MONTH ), 5, 'PERSONAL', 2);
+
+INSERT INTO category(name)
+VALUES ('Detective'),
+       ('Documentary'),
+       ('Fantasy'),
+       ('Adventure'),
+       ('Romance');
+
+INSERT INTO item_category( item_id, category_id)
+VALUES (1,1),
+       (1,2),
+       (2,4),
+       (2,5);
+
 
 INSERT INTO wish_list (person_id, item_id)
 VALUES (2, 4),

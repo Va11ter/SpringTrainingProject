@@ -13,7 +13,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "description")
+@ToString(exclude = {"description", "categories"})
+@EqualsAndHashCode(exclude = {"description", "categories"})
 public class Item extends EntityBase{
     private String name;
 

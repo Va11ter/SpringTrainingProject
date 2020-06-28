@@ -80,8 +80,13 @@ CREATE TABLE IF NOT EXISTS promo(
     is_active boolean default true,
     discount SMALLINT,
     description TEXT,
+    type VARCHAR(15),
+    person_id INT,
 
-    CONSTRAINT unique_code UNIQUE (code)
+    CONSTRAINT unique_code UNIQUE (code),
+
+    FOREIGN KEY (person_id)
+        REFERENCES person(id)
 );
 
 CREATE TABLE IF NOT EXISTS wish_list(
@@ -151,5 +156,21 @@ CREATE TABLE IF NOT EXISTS item_category(
          REFERENCES category(id)
          ON UPDATE CASCADE ON DELETE RESTRICT
 );
+
+CREATE TABLE IF NOT EXISTS promo_category(
+    no INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    promo_id INT NOT NULL,
+    category_id INT NOT NULL,
+
+    INDEX (promo_id, category_id),
+
+    FOREIGN KEY (promo_id)
+        REFERENCES promo(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    FOREIGN KEY (category_id)
+        REFERENCES category(id)
+        ON UPDATE CASCADE ON DELETE RESTRICT
+)
 
 

@@ -16,6 +16,7 @@ public class PromoDtoToPromoConverter implements Converter<PromoDto, Promo> {
                 .endDate(source.getEndDate())
                 .discount(source.getDiscount())
                 .isActive(source.isActive())
+                .type(source.getType())
                 .build();
     }
 }

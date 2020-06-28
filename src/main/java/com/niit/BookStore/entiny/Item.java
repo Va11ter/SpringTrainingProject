@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "item")
@@ -15,8 +16,14 @@ import java.math.BigDecimal;
 @ToString(exclude = "description")
 public class Item extends EntityBase{
     private String name;
+
     @Column(length = 10, precision = 2)
     private BigDecimal price;
     private String description;
     private Integer count;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.PERSIST,
+            mappedBy = "items")
+    private Set<Category> categories;
 }

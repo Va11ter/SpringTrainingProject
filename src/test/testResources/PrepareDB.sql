@@ -128,4 +128,28 @@ CREATE TABLE IF NOT EXISTS cart_item (
         ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
+CREATE TABLE IF NOT EXISTS category(
+    id INT NOT NULL AUTO_INCREMENT primary key,
+    name VARCHAR(128),
+
+    INDEX (name)
+);
+
+
+CREATE TABLE IF NOT EXISTS item_category(
+     no INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     item_id INT NOT NULL,
+     category_id INT NOT NULL,
+
+     INDEX (item_id, category_id),
+
+     FOREIGN KEY (item_id)
+         REFERENCES item(id)
+         ON UPDATE CASCADE ON DELETE RESTRICT,
+
+     FOREIGN KEY (category_id)
+         REFERENCES category(id)
+         ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
 

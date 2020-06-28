@@ -1,4 +1,4 @@
-package com.niit.BookStore.entiny;
+package com.niit.BookStore.entiny.enums;
 
 public enum OrderState {
     PLACED,

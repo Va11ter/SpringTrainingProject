@@ -26,10 +26,10 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
         return OrderDto.builder()
                 .id(source.getId())
                 .personDto(conversionService.convert(source.getPerson(), PersonDto.class))
-                .orderItemDto(source.getOrderItems()
+                .orderItemsDto((source.getOrderItems()
                         .stream()
-                        .map((OrderItem orderItem)-> conversionService.convert(orderItem, OrderItemDto.class))
-                        .collect(Collectors.toSet()))
+                        .map((OrderItem orderItem)-> conversionService.convert(source.getPerson(), OrderItemDto.class))
+                        .collect(Collectors.toSet())))
                 .build();
     }
 }

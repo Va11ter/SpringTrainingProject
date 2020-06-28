@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto updateOrder(Long id, OrderDto orderDto) {
         Order order = orderRepository.findById(orderDto.getId()).orElseThrow(
                 () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
-        order.setOrderItems(orderDto.getOrderItemDto()
+        order.setOrderItems(orderDto.getOrderItemsDto()
                 .stream()
                 .map((OrderItemDto orderItemDto) -> conversionService.convert(orderItemDto, OrderItem.class))
                 .collect(Collectors.toSet()));

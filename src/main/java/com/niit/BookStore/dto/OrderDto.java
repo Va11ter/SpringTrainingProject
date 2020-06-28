@@ -22,9 +22,9 @@ public class OrderDto implements Serializable {
     @JsonProperty("person")
     private PersonDto personDto;
     @JsonProperty("items")
-    private Set<OrderItemDto> orderItemDto;
+    private Set<OrderItemDto> orderItemsDto;
 
     public void addItem(OrderItemDto orderItemDto){
-        this.orderItemDto.add(orderItemDto);
+        this.orderItemsDto.add(orderItemDto);
     }
 }

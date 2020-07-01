@@ -4,9 +4,9 @@ import com.niit.BookStore.dto.PromoDto;
 import com.niit.BookStore.entiny.Promo;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.PromoRepository;
+import com.niit.BookStore.service.CustomConversionService;
 import com.niit.BookStore.service.PromoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class PromoServiceImpl implements PromoService {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "Promo not found";
     private PromoRepository promoRepository;
-    private ConversionService conversionService;
+    private CustomConversionService conversionService;
 
     @Autowired
-    public PromoServiceImpl(PromoRepository promoRepository, ConversionService conversionService) {
+    public PromoServiceImpl(PromoRepository promoRepository, CustomConversionService conversionService) {
         this.promoRepository = promoRepository;
         this.conversionService = conversionService;
     }

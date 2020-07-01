@@ -4,9 +4,9 @@ import com.niit.BookStore.dto.PersonDto;
 import com.niit.BookStore.entiny.Person;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.PersonRepository;
+import com.niit.BookStore.service.CustomConversionService;
 import com.niit.BookStore.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class PersonServiceImpl implements PersonService {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "Person not found";
     private final PersonRepository personRepository;
-    private final ConversionService conversionService;
+    private final CustomConversionService conversionService;
 
     @Autowired
-    public PersonServiceImpl(PersonRepository personRepository, ConversionService conversionService) {
+    public PersonServiceImpl(PersonRepository personRepository, CustomConversionService conversionService) {
         this.personRepository = personRepository;
         this.conversionService = conversionService;
     }

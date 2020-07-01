@@ -5,8 +5,8 @@ import com.niit.BookStore.entiny.Address;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.AddressRepository;
 import com.niit.BookStore.service.AddressService;
+import com.niit.BookStore.service.CustomConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class AddressServiceImpl implements AddressService {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "Address not found";
     private AddressRepository addressRepository;
-    private ConversionService conversionService;
+    private CustomConversionService conversionService;
 
     @Autowired
-    public AddressServiceImpl(AddressRepository addressRepository, ConversionService conversionService) {
+    public AddressServiceImpl(AddressRepository addressRepository, CustomConversionService conversionService) {
         this.addressRepository = addressRepository;
         this.conversionService = conversionService;
     }

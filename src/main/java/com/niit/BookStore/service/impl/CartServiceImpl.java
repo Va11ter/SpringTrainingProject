@@ -5,8 +5,8 @@ import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.CartRepository;
 import com.niit.BookStore.service.CartService;
+import com.niit.BookStore.service.CustomConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class CartServiceImpl implements CartService {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "Cart not found";
     private CartRepository cartRepository;
-    private ConversionService conversionService;
+    private CustomConversionService conversionService;
 
     @Autowired
-    public CartServiceImpl(CartRepository cartRepository, ConversionService conversionService) {
+    public CartServiceImpl(CartRepository cartRepository, CustomConversionService conversionService) {
         this.cartRepository = cartRepository;
         this.conversionService = conversionService;
     }

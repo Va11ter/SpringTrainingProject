@@ -1,23 +1,20 @@
 package com.niit.BookStore.converter;
 
 import com.niit.BookStore.dto.ItemDto;
-import com.niit.BookStore.dto.OrderDto;
 import com.niit.BookStore.dto.OrderItemDto;
-import com.niit.BookStore.entiny.Item;
-import com.niit.BookStore.entiny.Order;
 import com.niit.BookStore.entiny.OrderItem;
+import com.niit.BookStore.service.CustomConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class OrderItemToOrderItemDtoConverter implements Converter<OrderItem, OrderItemDto> {
-    private final ConversionService conversionService;
+    private final CustomConversionService conversionService;
 
     @Autowired
-    public OrderItemToOrderItemDtoConverter(ConversionService conversionService) {
+    public OrderItemToOrderItemDtoConverter(CustomConversionService conversionService) {
         this.conversionService = conversionService;
     }
 

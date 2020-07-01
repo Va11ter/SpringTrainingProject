@@ -1,15 +1,14 @@
 package com.niit.BookStore.service.impl;
 
 import com.niit.BookStore.dto.OrderDto;
-import com.niit.BookStore.dto.OrderItemDto;
 import com.niit.BookStore.entiny.Order;
 import com.niit.BookStore.entiny.OrderItem;
 import com.niit.BookStore.entiny.Person;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.OrderRepository;
+import com.niit.BookStore.service.CustomConversionService;
 import com.niit.BookStore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,10 +20,10 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "Order not found";
     private OrderRepository orderRepository;
-    private ConversionService conversionService;
+    private CustomConversionService conversionService;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ConversionService conversionService) {
+    public OrderServiceImpl(OrderRepository orderRepository, CustomConversionService conversionService) {
         this.orderRepository = orderRepository;
         this.conversionService = conversionService;
     }
@@ -46,10 +45,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto updateOrder(Long id, OrderDto orderDto) {
         Order order = orderRepository.findById(orderDto.getId()).orElseThrow(
                 () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
-        order.setOrderItems(orderDto.getOrderItemsDto()
-                .stream()
-                .map((OrderItemDto orderItemDto) -> conversionService.convert(orderItemDto, OrderItem.class))
-                .collect(Collectors.toSet()));
+        order.setOrderItems(conversionService.convert(orderDto.getOrderItemsDto(), OrderItem.class));
         order.setPerson(conversionService.convert(orderDto.getPersonDto(), Person.class));
         return conversionService.convert(order, OrderDto.class);
     }

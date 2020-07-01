@@ -5,8 +5,8 @@ import com.niit.BookStore.dto.OrderItemDto;
 import com.niit.BookStore.entiny.Order;
 import com.niit.BookStore.entiny.OrderItem;
 import com.niit.BookStore.entiny.Person;
+import com.niit.BookStore.service.CustomConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderDtoToOrderConverter implements Converter<OrderDto, Order> {
-    private final ConversionService conversionService;
+    private final CustomConversionService conversionService;
 
     @Autowired
-    public OrderDtoToOrderConverter(ConversionService conversionService) {
+    public OrderDtoToOrderConverter(CustomConversionService conversionService) {
         this.conversionService = conversionService;
     }
 
@@ -25,10 +25,7 @@ public class OrderDtoToOrderConverter implements Converter<OrderDto, Order> {
     public Order convert(OrderDto source) {
         return Order.builder()
                 .person(conversionService.convert(source.getPersonDto(), Person.class))
-                .orderItems(source.getOrderItemsDto()
-                        .stream()
-                        .map((OrderItemDto orderItemDto) -> conversionService.convert(orderItemDto, OrderItem.class))
-                        .collect(Collectors.toSet()))
+                .orderItems(conversionService.convert(source.getOrderItemsDto(), OrderItem.class))
                 .build();
     }
 }

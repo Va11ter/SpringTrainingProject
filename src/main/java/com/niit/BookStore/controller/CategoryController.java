@@ -29,6 +29,11 @@ public class CategoryController {
         return categoryService.getCategoryById(id);
     }
 
+    @GetMapping(value = "/{id}/items")
+    public CategoryDto getCategoryItems(@PathVariable("id") Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
     @PostMapping
     public CategoryDto createCategory(@RequestBody CategoryDto categoryDto) {
         return categoryService.createCategory(categoryDto);

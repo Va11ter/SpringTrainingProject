@@ -1,11 +1,14 @@
 package com.niit.BookStore.entiny;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
+@EqualsAndHashCode
 public class EntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

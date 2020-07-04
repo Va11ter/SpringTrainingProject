@@ -23,8 +23,4 @@ public class OrderDto implements Serializable {
     private PersonDto personDto;
     @JsonProperty("items")
     private Set<OrderItemDto> orderItemsDto;
-
-    public void addItem(OrderItemDto orderItemDto){
-        this.orderItemsDto.add(orderItemDto);
-    }
 }

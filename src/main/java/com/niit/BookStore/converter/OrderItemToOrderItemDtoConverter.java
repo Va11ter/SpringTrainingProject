@@ -21,6 +21,7 @@ public class OrderItemToOrderItemDtoConverter implements Converter<OrderItem, Or
     @Override
     public OrderItemDto convert(OrderItem source) {
         return OrderItemDto.builder()
+                .id(source.getId())
                 .count(source.getCount())
                 .price(source.getPrice())
                 .itemDto(conversionService.convert(source.getItem(), ItemDto.class))

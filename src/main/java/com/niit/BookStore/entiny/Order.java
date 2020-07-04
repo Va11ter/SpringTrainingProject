@@ -21,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"person", "address", "orderItems"})
-@EqualsAndHashCode(exclude = {"person", "address", "orderItems"})
+@EqualsAndHashCode(exclude = {"person", "address", "orderItems"}, callSuper = true)
 public class Order extends EntityBase {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -31,17 +31,21 @@ public class Order extends EntityBase {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private Set<OrderItem> orderItems;
 
     @Enumerated(EnumType.STRING)
-    private OrderState state;
+    private OrderState state = OrderState.PLACED;
 
     @Column(length = 10, precision = 2)
     private BigDecimal total;
 
     @Column(name = "placed_on")
     private LocalDateTime placedOn;
+
+    public void addOrderItem(OrderItem orderItem){
+        orderItems.add(orderItem);
+    }
 
 }
 

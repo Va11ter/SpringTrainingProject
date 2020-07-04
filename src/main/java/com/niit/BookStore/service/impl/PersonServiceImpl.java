@@ -67,6 +67,4 @@ public class PersonServiceImpl implements PersonService {
                 .map((Person person) -> conversionService.convert(person, PersonDto.class))
                 .collect(Collectors.toList());
     }
-
-
 }

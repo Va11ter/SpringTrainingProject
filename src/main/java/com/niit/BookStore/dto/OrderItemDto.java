@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 public class OrderItemDto implements Serializable {
+    private Long id;
     @JsonProperty("item")
     private ItemDto itemDto;
     @JsonProperty("price")

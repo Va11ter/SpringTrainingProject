@@ -54,7 +54,7 @@ public class CartServiceImpl implements CartService {
         return cart;
     }
 
-    private Cart getPersonCart(Long person_id){
+    public Cart getPersonCart(Long person_id){
         Cart cart = cartRepository.findCartByPerson_Id(person_id);
         if (Objects.isNull(cart)) {
             cart = createCart(person_id);

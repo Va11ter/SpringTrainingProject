@@ -1,11 +1,10 @@
 package com.niit.BookStore.controller;
 
 import com.niit.BookStore.dto.CartDto;
+import com.niit.BookStore.dto.OrderDto;
 import com.niit.BookStore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -17,29 +16,24 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @GetMapping(value = "/{id}")
-    public CartDto getCartById(@PathVariable("id") Long id){
-        return cartService.getCartById(id);
+    @GetMapping
+    public CartDto getPersonCart(@RequestHeader(name = "user_id") Long person_id){
+        return cartService.getPersonCartByPersonId(person_id);
     }
 
-    @PostMapping
-    public CartDto createCart(@RequestBody CartDto cartDto){
-        return cartService.createCart(cartDto);
-    }
-
-    @PutMapping(value = "/{id}")
+    @PutMapping
     public CartDto updateCart(@PathVariable("id") Long id, @RequestBody CartDto cartDto){
         return cartService.updateCart(id, cartDto);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void deleteCart(@PathVariable Long id){
-        cartService.deleteCart(id);
+    @DeleteMapping
+    public void deleteCart(@RequestHeader(name = "user_id") Long person_id){
+        cartService.clearCart(person_id);
     }
 
-    @GetMapping
-    public List<CartDto> getAll(){
-        return cartService.getAll();
+    @PostMapping("/order")
+    public OrderDto makeOrder(@RequestHeader(name = "user_id") Long person_id){
+        return new OrderDto();
     }
 
 }

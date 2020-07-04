@@ -18,12 +18,6 @@ import java.util.Set;
 public class CartDto implements Serializable {
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("person_id")
-    private Person person;
     @JsonProperty("items")
-    private Set<Item> items;
-
-    public void addItem(Item item){
-        this.items.add(item);
-    }
+    private Set<ItemDto> items;
 }

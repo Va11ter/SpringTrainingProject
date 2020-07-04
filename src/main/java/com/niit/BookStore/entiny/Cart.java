@@ -23,4 +23,8 @@ public class Cart extends EntityBase{
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items;
+
+    public void addItem(Item item){
+        items.add(item);
+    }
 }

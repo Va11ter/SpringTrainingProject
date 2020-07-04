@@ -1,6 +1,8 @@
 package com.niit.BookStore.controller;
 
+import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.dto.ItemDto;
+import com.niit.BookStore.service.CartService;
 import com.niit.BookStore.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +13,12 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
     private ItemService itemService;
+    private CartService cartService;
 
     @Autowired
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, CartService cartService) {
         this.itemService = itemService;
+        this.cartService = cartService;
     }
 
     @GetMapping(value = "/{id}")
@@ -42,4 +46,8 @@ public class ItemController {
         return itemService.getAll();
     }
 
+    @PostMapping(path = "/{item_id}/to_cart")
+    public CartDto addItemToCart(@RequestHeader(name = "user_id") Long person_id, @PathVariable("item_id") Long item_id){
+        return cartService.addItem(person_id, item_id);
+    }
 }

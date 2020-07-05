@@ -6,6 +6,931 @@
 	},
 	"item": [
 		{
+			"name": "Cart Requests",
+			"item": [
+				{
+					"name": "GetPersonCart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MakeOrder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "1",
+								"type": "text",
+								"equals": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cart/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPromoToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"promo_code\": \"JulyDay\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/promo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"promo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Bonuses to Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"type": "text",
+								"value": "1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"bonuses\": 10}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/bonus",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"bonus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bonuses from Cart",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"type": "text",
+								"value": "1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/bonus",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"bonus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Bonuses from Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user_id",
+								"type": "text",
+								"value": "1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"bonuses\": 5}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/bonus",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"bonus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Promo from Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user_id",
+								"type": "text",
+								"value": "1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"promo_code\": \"JulyDay\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/promo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"promo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPromo Not actove code ToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"promo_code\": \"JulyDay\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/promo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"promo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPromo Not actove code ToCart Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"promo_code\": \"RandomGenerated1\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/promo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"promo"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "OrderRequests",
+			"item": [
+				{
+					"name": "getAllOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/orders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/orders/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompleteOrder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/orders/14/complete",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								"14",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelOrder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/orders/16/cancel",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								"16",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ItemRequests",
+			"item": [
+				{
+					"name": "updateItem",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"id\": 1,\n        \"name\": \"NewItem Super-mega-items4\",\n        \"price\": 200,\n        \"description\": \"Some very importnant description\",\n        \"count\": 25\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/items/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addItemToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/items/3/to_cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"3",
+								"to_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createItem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"name\": \"NewItem Super-mega-items25\",\n        \"price\": 100,\n        \"description\": \"Some very importnant description\",\n        \"count\": 0\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/items",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllItems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/items",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getItemById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/items/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPromoToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"promo_code\": \"JulyDay\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/promo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"promo"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "PromoRequests",
+			"item": [
+				{
+					"name": "getPromoById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/promos/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"promos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPromos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/promos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"promos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPromo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\": \"JulyDay\",\n    \"discount\": 3,\n    \"start_date\": \"2020-05-21T22:06:59\",\n    \"end_date\": \"2020-07-21T22:07:59\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/promos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"promos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "BuyFlow",
+			"item": [
+				{
+					"name": "getPersonById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/persons/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPersonCart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllItems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/items",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Item 1 to cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"type": "text",
+								"value": "2"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/items/1/to_cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"1",
+								"to_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Item 4 to cart Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/items/4/to_cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"items",
+								"4",
+								"to_cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPromoToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"type": "text",
+								"value": "2"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"promo_code\": \"RandomGenerated2\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/promo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"promo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apply Bonuses to Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"type": "text",
+								"value": "1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"bonuses\": 5}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/bonus",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"bonus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPersonCart",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MakeOrder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "352f04a1-014b-4a6f-8b9e-eb4c5ffcb3f2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"equals": true,
+								"key": "user_id",
+								"type": "text",
+								"value": "2"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/cart/order",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CompleteOrder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/orders/21/complete",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orders",
+								"21",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "getAllPersons",
 			"request": {
 				"method": "GET",
@@ -24,171 +949,18 @@
 			"response": []
 		},
 		{
-			"name": "getAllItems",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/items",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"items"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "createItem",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\n        \"name\": \"NewItem Super-mega-items25\",\n        \"price\": 100,\n        \"description\": \"Some very importnant description\",\n        \"count\": 0\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/items",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"items"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "createOrder",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\n        \"person\": {\n            \"id\": 3,\n            \"firstName\": \"Second2\",\n            \"lastName\": \"Second_last3\",\n            \"email\": \"last_name2@mail.com\",\n            \"address\": null,\n            \"wishListItems\": []\n        },\n        \"items\": [\n            {\n                \"id\": 2,\n                \"name\": \"NewItem2\",\n                \"price\": 100,\n                \"description\": \"Some very important description2\",\n                \"count\": 5\n            }\n        ]\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/orders",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"orders"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getAllOrders",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/orders",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"orders"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getAllAddresses",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/orders",
+					"raw": "localhost:8080/addresses",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getAllPromos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/promos",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"promos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getPromoById",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/orders",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"orders"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "createPromo",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"code\": \"JulyDay\",\n    \"discount\": 3,\n    \"start_date\": \"2020-05-21T22:06:59\",\n    \"end_date\": \"2020-07-21T22:07:59\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/promos",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"promos"
+						"addresses"
 					]
 				}
 			},
@@ -200,41 +972,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/orders",
+					"raw": "localhost:8080/addresses/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"orders"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "updateItem",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "    {\n        \"id\": 1,\n        \"name\": \"NewItem Super-mega-items4\",\n        \"price\": 200,\n        \"description\": \"Some very importnant description\",\n        \"count\": 25\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/items/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"items",
-						"1"
+						"addresses",
+						"2"
 					]
 				}
 			},
@@ -260,51 +1005,13 @@
 			"response": []
 		},
 		{
-			"name": "deletePersonById",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/persons/2",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"persons",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "deletePersonById Copy",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/persons/2",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"persons",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "updatePersonById",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 2,\n    \"first_name\": \"Second2\",\n    \"last_name\": \"Second_last3\",\n    \"email\": \"new_name1@mail.com\"\n}",
+					"raw": "{\n    \"id\": 11,\n    \"first_name\": \"Second23\",\n    \"last_name\": \"Second_last33\",\n    \"email\": \"new_name12@mail.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -312,14 +1019,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/persons/2",
+					"raw": "localhost:8080/persons/11",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"persons",
-						"2"
+						"11"
 					]
 				}
 			},
@@ -375,6 +1082,24 @@
 					"path": [
 						"persons",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllCategories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/categories",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"categories"
 					]
 				}
 			},

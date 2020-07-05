@@ -20,4 +20,6 @@ public class CartDto implements Serializable {
     private Long id;
     @JsonProperty("items")
     private Set<ItemDto> items;
+    @JsonProperty("promo")
+    private PromoDto promoDto;
 }

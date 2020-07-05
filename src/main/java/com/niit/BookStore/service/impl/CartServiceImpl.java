@@ -4,12 +4,15 @@ import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.entiny.Item;
 import com.niit.BookStore.entiny.Person;
+import com.niit.BookStore.entiny.Promo;
+import com.niit.BookStore.exception.AddPromoToCartException;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.CartRepository;
 import com.niit.BookStore.repository.ItemRepository;
 import com.niit.BookStore.repository.PersonRepository;
 import com.niit.BookStore.service.CartService;
 import com.niit.BookStore.service.CustomConversionService;
+import com.niit.BookStore.service.PromoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,17 +25,25 @@ import java.util.stream.Collectors;
 @Transactional
 public class CartServiceImpl implements CartService {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "Something went wrong, please contact our support.";
+    private final CustomConversionService conversionService;
+    private final PromoService promoService;
+
     private final PersonRepository personRepository;
     private final CartRepository cartRepository;
     private final ItemRepository itemRepository;
-    private final CustomConversionService conversionService;
+
 
     @Autowired
-    public CartServiceImpl(PersonRepository personRepository, CartRepository cartRepository, ItemRepository itemRepository, CustomConversionService conversionService) {
+    public CartServiceImpl(PersonRepository personRepository,
+                           CartRepository cartRepository,
+                           ItemRepository itemRepository,
+                           CustomConversionService conversionService,
+                           PromoService promoService) {
         this.personRepository = personRepository;
         this.cartRepository = cartRepository;
         this.itemRepository = itemRepository;
         this.conversionService = conversionService;
+        this.promoService = promoService;
     }
 
     @Override
@@ -97,6 +108,26 @@ public class CartServiceImpl implements CartService {
         Item item = itemRepository.findById(item_id).orElseThrow(
                 () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         cart.addItem(item);
+        return conversionService.convert(cart, CartDto.class);
+    }
+
+    @Override
+    public CartDto addPromoToCart(Long person_id, String promoCode){
+        Cart cart = getPersonCart(person_id);
+        Promo promo = promoService.getActivePromoByCode(promoCode);
+        if(promoService.isApplicableForCart(promo, cart)){
+            cart.setPromo(promo);
+        }else {
+            throw new AddPromoToCartException(
+                    String.format("Promo code '%s' cannot be applied to your cart", promoCode));
+        }
+        return conversionService.convert(cart, CartDto.class);
+    }
+
+    @Override
+    public CartDto deletePromoFromCart(Long person_id){
+        Cart cart = getPersonCart(person_id);
+        cart.setPromo(null);
         return conversionService.convert(cart, CartDto.class);
     }
 }

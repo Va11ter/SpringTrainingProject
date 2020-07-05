@@ -3,6 +3,7 @@ package com.niit.BookStore.converter;
 import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.entiny.Item;
+import com.niit.BookStore.entiny.Promo;
 import com.niit.BookStore.service.CustomConversionService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class CartDtoToCartConverter implements Converter<CartDto, Cart> {
     public Cart convert(CartDto source) {
         return Cart.builder()
                 .items(customConversionService.convert(source.getItems(), Item.class))
+                .promo(customConversionService.convert(source.getPromoDto(), Promo.class))
                 .build();
     }
 }

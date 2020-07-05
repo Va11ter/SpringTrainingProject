@@ -12,8 +12,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "items")
-@EqualsAndHashCode(exclude = "items", callSuper = true)
+@ToString(exclude = {"items", "promo"})
+@EqualsAndHashCode(exclude = {"items", "promo"}, callSuper = true)
 public class Cart extends EntityBase{
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -24,6 +24,10 @@ public class Cart extends EntityBase{
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="promo_id")
+    private Promo promo;
 
     public void addItem(Item item){
         items.add(item);

@@ -14,4 +14,7 @@ public interface CartService {
     CartDto addItem(Long person_id, Long item_id);
     void clearCart(Long person_id);
     void clearCart(Cart cart);
+
+    CartDto addPromoToCart(Long person_id, String promoName);
+    CartDto deletePromoFromCart(Long person_id);
 }

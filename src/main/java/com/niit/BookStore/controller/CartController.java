@@ -2,8 +2,10 @@ package com.niit.BookStore.controller;
 
 import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.dto.OrderDto;
+import com.niit.BookStore.dto.PromoAddToCartDto;
 import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.entiny.Item;
+import com.niit.BookStore.exception.AddPromoToCartException;
 import com.niit.BookStore.exception.AddressNotSpecifiedAppException;
 import com.niit.BookStore.exception.CartIsEmptyAppException;
 import com.niit.BookStore.service.CartService;
@@ -59,4 +61,16 @@ public class CartController {
         return newOrderDto;
     }
 
+    @PostMapping(value = "/promo")
+    public CartDto addPromoToCart(@RequestHeader(name = "user_id") Long person_id, @RequestBody PromoAddToCartDto promoAddToCartDto){
+        if(Objects.isNull(promoAddToCartDto.getPromoCode())){
+            throw new AddPromoToCartException("Promo name isn't specified.");
+        }
+        return cartService.addPromoToCart(person_id, promoAddToCartDto.getPromoCode());
+    }
+
+    @DeleteMapping(value = "/promo")
+    public CartDto deletePromoFromCard(@RequestHeader(name = "user_id") Long person_id){
+        return cartService.deletePromoFromCart(person_id);
+    }
 }

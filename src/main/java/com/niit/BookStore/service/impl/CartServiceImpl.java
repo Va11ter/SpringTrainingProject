@@ -72,6 +72,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public void clearCart(Long person_id){
         Cart cart = getPersonCart(person_id);
+        clearCart(cart);
+    }
+
+    public void clearCart(Cart cart){
         cart.getItems().clear();
     }
 

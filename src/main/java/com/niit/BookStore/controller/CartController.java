@@ -53,7 +53,10 @@ public class CartController {
         if (Objects.isNull(cartItems) || cartItems.isEmpty()) {
             throw new CartIsEmptyAppException("Cart is empty. Please put something to you cart, before making order.");
         }
-        return orderService.makeOrder(cart);
+
+        OrderDto newOrderDto =  orderService.makeOrder(cart);
+        cartService.clearCart(cart);
+        return newOrderDto;
     }
 
 }

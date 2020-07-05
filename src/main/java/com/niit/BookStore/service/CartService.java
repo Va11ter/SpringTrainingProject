@@ -13,4 +13,5 @@ public interface CartService {
     List<CartDto> getAll();
     CartDto addItem(Long person_id, Long item_id);
     void clearCart(Long person_id);
+    void clearCart(Cart cart);
 }

@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"order", "item"})
-@EqualsAndHashCode(exclude = {"order", "item"})
+@EqualsAndHashCode(exclude = {"order", "item"}, callSuper = true)
 public class OrderItem extends EntityBase{
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "id")

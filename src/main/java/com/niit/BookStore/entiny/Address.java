@@ -12,6 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "person")
+@EqualsAndHashCode(exclude = "person", callSuper = true)
 public class Address extends EntityBase{
     @Column(name = "postal_code")
     private String postalCode;

@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"description", "categories"})
-@EqualsAndHashCode(exclude = {"description", "categories"})
+@EqualsAndHashCode(exclude = {"description", "categories"}, callSuper = true)
 public class Item extends EntityBase{
     private String name;
 

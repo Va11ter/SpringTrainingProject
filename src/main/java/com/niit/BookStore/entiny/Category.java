@@ -23,7 +23,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "items")
-@EqualsAndHashCode(exclude = "items")
+@EqualsAndHashCode(exclude = "items", callSuper = true)
 public class Category extends EntityBase{
     private String name;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

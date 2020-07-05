@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"address", "wishListItems"})
-@EqualsAndHashCode(exclude = {"address", "wishListItems"})
+@EqualsAndHashCode(exclude = {"address", "wishListItems"}, callSuper = true)
 public class Person extends EntityBase {
     @Column(name = "first_name")
     private String firstName;

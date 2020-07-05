@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = {"description", "categories", "person"})
-@EqualsAndHashCode(exclude = {"description", "categories", "person"})
+@EqualsAndHashCode(exclude = {"description", "categories", "person"}, callSuper = true)
 public class Promo extends EntityBase{
     private String code;
     private String description;

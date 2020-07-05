@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "items")
+@EqualsAndHashCode(exclude = "items", callSuper = true)
 public class Cart extends EntityBase{
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")

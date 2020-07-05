@@ -19,14 +19,16 @@ public class Person extends EntityBase {
     @Column(name = "last_name")
     private String lastName;
     private String email;
+    private Integer bonus;
+
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "wish_list",
-    joinColumns = @JoinColumn(name="person_id"),
-    inverseJoinColumns = @JoinColumn(name = "item_id"))
+            joinColumns = @JoinColumn(name="person_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> wishListItems;
 
 }

@@ -14,6 +14,8 @@ public class PersonToPersonDtoConverter implements Converter<Person, PersonDto> 
                 .id(person.getId())
                 .firstName(person.getFirstName())
                 .lastName(person.getLastName())
-                .email(person.getEmail()).build();
+                .email(person.getEmail())
+                .bonus(person.getBonus())
+                .build();
     }
 }

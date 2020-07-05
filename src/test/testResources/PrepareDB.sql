@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS person(
     last_name VARCHAR(50),
     email VARCHAR(50),
     address_id INT,
+    bonus INT DEFAULT 0,
 
     CONSTRAINT uniq_email UNIQUE (email),
 

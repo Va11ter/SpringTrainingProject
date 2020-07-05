@@ -23,4 +23,5 @@ public class PersonDto implements Serializable {
     private String lastName;
     @JsonProperty("email")
     private String email;
+    private Integer bonus;
 }

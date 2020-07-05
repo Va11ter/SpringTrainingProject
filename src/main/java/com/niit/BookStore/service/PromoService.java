@@ -6,6 +6,7 @@ import com.niit.BookStore.entiny.Item;
 import com.niit.BookStore.entiny.Person;
 import com.niit.BookStore.entiny.Promo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PromoService {
@@ -20,4 +21,5 @@ public interface PromoService {
     boolean isApplicableForCart(Promo promo, Cart cart);
     boolean isApplicableForPerson(Promo promo, Person person);
     boolean isApplicableForItem(Promo promo, Item item);
+    BigDecimal getItemPriseWithDiscount(Promo promo, Item item, Person person);
 }

@@ -15,11 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,9 +46,9 @@ public class PromoServiceImpl implements PromoService {
     }
 
     @Override
-    public Promo getActivePromoByCode(String code){
+    public Promo getActivePromoByCode(String code) {
         Promo promo = promoRepository.findPromoByCodeAndIsActiveIsTrue(code);
-        if(Objects.isNull(promo) || !promo.isActive()){
+        if (Objects.isNull(promo) || !promo.isActive()) {
             throw new ItemNotFoundException(String.format("Sorry, '%s' isn't found or not active anymore.", code));
         }
         return promo;
@@ -60,7 +64,7 @@ public class PromoServiceImpl implements PromoService {
     @Override
     public PromoDto updatePromo(Long id, PromoDto promoDto) {
         Promo promo = promoRepository.findById(promoDto.getId()).orElseThrow(
-                ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
+                () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         promo.setStartDate(promoDto.getStartDate());
         promo.setStartDate(promo.getStartDate());
         promo.setEndDate(promoDto.getStartDate());
@@ -72,7 +76,7 @@ public class PromoServiceImpl implements PromoService {
     @Override
     public boolean isPromoActive(Long promoId) {
         Promo promo = promoRepository.findById(promoId).orElseThrow(
-                ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
+                () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         return isPromoActive(promo);
     }
 
@@ -88,7 +92,7 @@ public class PromoServiceImpl implements PromoService {
     public void deletePromo(Long id) {
         if (promoRepository.existsById(id)) {
             promoRepository.deleteById(id);
-        }else{
+        } else {
             throw new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE);
         }
     }
@@ -104,14 +108,14 @@ public class PromoServiceImpl implements PromoService {
 
     @Override
     public boolean isApplicableForCart(Promo promo, Cart cart) {
-        switch (promo.getType()){
+        switch (promo.getType()) {
             case COMMON:
                 return true;
             case PERSONAL:
                 return isApplicableForPerson(promo, cart.getPerson());
             case PRODUCT_TYPE:
-                for (Item item: cart.getItems()){
-                    if(isApplicableForItem(promo, item)){
+                for (Item item : cart.getItems()) {
+                    if (isApplicableForItem(promo, item)) {
                         return true;
                     }
                 }
@@ -127,20 +131,21 @@ public class PromoServiceImpl implements PromoService {
     @Override
     public boolean isApplicableForItem(Promo promo, Item item) {
         BiPredicate<Set<Category>, Set<Category>> haveCommonCategory;
-        haveCommonCategory = (itemCategories, promoCategories)->{
-            for (Category category: itemCategories){
-                if(promoCategories.contains(category)){
+        haveCommonCategory = (itemCategories, promoCategories) -> {
+            for (Category itemCategory : itemCategories) {
+                if (promoCategories.contains(itemCategory)) {
                     return true;
                 }
             }
             return false;
         };
 
-        switch (promo.getType()){
+        switch (promo.getType()) {
             case COMMON:
                 return true;
             case PERSONAL:
                 return Objects.isNull(promo.getCategories())
+                        || promo.getCategories().isEmpty()
                         || haveCommonCategory.test(item.getCategories(), promo.getCategories());
             case PRODUCT_TYPE:
                 return !Objects.isNull(promo.getCategories())
@@ -151,5 +156,26 @@ public class PromoServiceImpl implements PromoService {
         }
     }
 
+    @Override
+    public BigDecimal getItemPriseWithDiscount(Promo promo, Item item, Person person) {
+        BigDecimal itemPrice = item.getPrice();
+        if (Objects.isNull(promo)) {
+            return itemPrice;
+        }
+
+        BiFunction<BigDecimal, Integer, BigDecimal> calculateDiscount = (price, discount) ->
+                price.multiply(new BigDecimal(100-discount)).divide(new BigDecimal(100),
+                        RoundingMode.DOWN);
+
+        if(promo.getType() == PromoType.PERSONAL
+                && isApplicableForPerson(promo, person)
+                && isApplicableForItem(promo, item)){
+            return calculateDiscount.apply(itemPrice, promo.getDiscount());
+        }else if (promo.getType() != PromoType.PERSONAL && isApplicableForItem(promo, item)){
+            return calculateDiscount.apply(itemPrice, promo.getDiscount());
+        }
+
+        return itemPrice;
+    }
 
 }

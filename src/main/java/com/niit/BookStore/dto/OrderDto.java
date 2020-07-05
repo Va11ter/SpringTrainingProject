@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.swing.plaf.nimbus.State;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
@@ -25,4 +26,6 @@ public class OrderDto implements Serializable {
     @JsonProperty("items")
     private Set<OrderItemDto> orderItemsDto;
     private String state;
+    @JsonProperty("total_price")
+    private BigDecimal total;
 }

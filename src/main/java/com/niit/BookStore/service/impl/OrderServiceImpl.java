@@ -5,7 +5,6 @@ import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.entiny.Item;
 import com.niit.BookStore.entiny.Order;
 import com.niit.BookStore.entiny.OrderItem;
-import com.niit.BookStore.entiny.Person;
 import com.niit.BookStore.entiny.enums.OrderState;
 import com.niit.BookStore.exception.ChangeStateOrderException;
 import com.niit.BookStore.exception.ItemNotFoundException;
@@ -13,6 +12,7 @@ import com.niit.BookStore.exception.MakeOrderAppException;
 import com.niit.BookStore.repository.OrderRepository;
 import com.niit.BookStore.service.CustomConversionService;
 import com.niit.BookStore.service.OrderService;
+import com.niit.BookStore.service.PromoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,17 @@ import java.util.stream.Collectors;
 @Transactional
 public class OrderServiceImpl implements OrderService {
     private static final String NOT_FOUND_EXCEPTION_MESSAGE = "Order not found";
-    private OrderRepository orderRepository;
-    private CustomConversionService conversionService;
+    private final OrderRepository orderRepository;
+    private final CustomConversionService conversionService;
+    private final PromoService promoService;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, CustomConversionService conversionService) {
+    public OrderServiceImpl(OrderRepository orderRepository,
+                            CustomConversionService conversionService,
+                            PromoService promoService) {
         this.orderRepository = orderRepository;
         this.conversionService = conversionService;
+        this.promoService = promoService;
     }
 
     @Override
@@ -78,8 +82,6 @@ public class OrderServiceImpl implements OrderService {
         return conversionService.convert(order, OrderDto.class);
     }
 
-
-
     @Override
     public OrderDto makeOrder(Cart cart) {
         Order newOrder = Order.builder()
@@ -95,14 +97,15 @@ public class OrderServiceImpl implements OrderService {
                     .order(newOrder)
                     .item(item)
                     .count(1)
-                    .price(item.getPrice())
                     .build();
 
             if(item.getCount()-1 < 0){
                 throw new MakeOrderAppException(String.format("Sorry, there isn't enough '%s' items in stock", item.getName()));
             }
             item.setCount(item.getCount()-1);
-            orderItem.setPrice(item.getPrice());
+
+            orderItem.setPrice(promoService.getItemPriseWithDiscount(cart.getPromo(), item, cart.getPerson()));
+
             orderPrice = orderPrice.add(orderItem.getPrice());
             orderItemSet.add(orderItem);
         }

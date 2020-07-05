@@ -34,6 +34,7 @@ public class Order extends EntityBase {
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private Set<OrderItem> orderItems;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     private OrderState state = OrderState.PLACED;
 

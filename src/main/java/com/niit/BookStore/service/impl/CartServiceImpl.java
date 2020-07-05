@@ -90,6 +90,7 @@ public class CartServiceImpl implements CartService {
 
     public void clearCart(Cart cart){
         cart.getItems().clear();
+        cart.setAppliedBonuses(0);
     }
 
     @Override

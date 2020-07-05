@@ -6,6 +6,8 @@ import com.niit.BookStore.entiny.Item;
 import com.niit.BookStore.entiny.Order;
 import com.niit.BookStore.entiny.OrderItem;
 import com.niit.BookStore.entiny.Person;
+import com.niit.BookStore.entiny.enums.OrderState;
+import com.niit.BookStore.exception.ChangeStateOrderException;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.exception.MakeOrderAppException;
 import com.niit.BookStore.repository.OrderRepository;
@@ -37,18 +39,46 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto getOrderById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(() -> new ItemNotFoundException("NOT_FOUND_EXCEPTION_MESSAGE"));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         return conversionService.convert(order, OrderDto.class);
     }
 
     @Override
-    public OrderDto updateOrder(Long id, OrderDto orderDto) {
-        Order order = orderRepository.findById(orderDto.getId()).orElseThrow(
+    public OrderDto cancelOrder(Long id){
+        Order order = orderRepository.findById(id).orElseThrow(
                 () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
-        order.setOrderItems(conversionService.convert(orderDto.getOrderItemsDto(), OrderItem.class));
-        order.setPerson(conversionService.convert(orderDto.getPersonDto(), Person.class));
+
+        if(order.getState() == OrderState.CANCELED || order.getState() == OrderState.COMPLETED){
+            throw new ChangeStateOrderException(String.format("You cannot cancel order in state: '%s'",
+                    order.getState()));
+        }
+
+        for (OrderItem orderItem: order.getOrderItems()){
+            Item item = orderItem.getItem();
+            item.setCount(item.getCount()+orderItem.getCount());
+        }
+
+        order.setState(OrderState.CANCELED);
+
         return conversionService.convert(order, OrderDto.class);
     }
+
+    @Override
+    public OrderDto completeOrder(Long id){
+        Order order = orderRepository.findById(id).orElseThrow(
+                () -> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
+
+        if(order.getState() == OrderState.CANCELED || order.getState() == OrderState.COMPLETED){
+            throw new ChangeStateOrderException(String.format("You cannot complete order in state: '%s'",
+                    order.getState()));
+        }
+
+        order.setState(OrderState.COMPLETED);
+
+        return conversionService.convert(order, OrderDto.class);
+    }
+
+
 
     @Override
     public OrderDto makeOrder(Cart cart) {

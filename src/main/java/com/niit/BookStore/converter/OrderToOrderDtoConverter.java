@@ -26,6 +26,7 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
                 .id(source.getId())
                 .personDto(conversionService.convert(source.getPerson(), PersonDto.class))
                 .orderItemsDto(conversionService.convert(source.getOrderItems(), OrderItemDto.class))
+                .state(source.getState().toString())
                 .build();
     }
 }

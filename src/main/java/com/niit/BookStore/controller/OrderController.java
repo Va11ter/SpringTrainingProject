@@ -22,9 +22,14 @@ public class OrderController {
         return orderService.getOrderById(id);
     }
 
-    @PutMapping(value = "/{id}")
-    public OrderDto updateOrder(@PathVariable("id") Long id, @RequestBody OrderDto orderDto){
-        return orderService.updateOrder(id, orderDto);
+    @PutMapping(value = "/{id}/cancel")
+    public OrderDto cancelOrder(@PathVariable("id") Long id){
+        return orderService.cancelOrder(id);
+    }
+
+    @PutMapping(value = "/{id}/complete")
+    public OrderDto completeOrder(@PathVariable("id") Long id){
+        return orderService.completeOrder(id);
     }
 
     @GetMapping

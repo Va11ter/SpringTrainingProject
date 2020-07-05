@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -23,4 +24,5 @@ public class OrderDto implements Serializable {
     private PersonDto personDto;
     @JsonProperty("items")
     private Set<OrderItemDto> orderItemsDto;
+    private String state;
 }

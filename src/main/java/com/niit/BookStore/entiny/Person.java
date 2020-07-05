@@ -19,7 +19,8 @@ public class Person extends EntityBase {
     @Column(name = "last_name")
     private String lastName;
     private String email;
-    private Integer bonus;
+    @Builder.Default
+    private Integer bonus = 0;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="address_id", referencedColumnName = "id")

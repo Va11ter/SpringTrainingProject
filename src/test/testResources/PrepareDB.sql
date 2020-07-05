@@ -46,6 +46,8 @@ CREATE TABLE IF NOT EXISTS `order`(
     state VARCHAR(10),
     total DECIMAL,
     placed_on timestamp,
+    used_bonuses INT default 0,
+    earned_bonuses INT default 0,
 
     INDEX (person_id),
     FOREIGN KEY (person_id)

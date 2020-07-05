@@ -28,6 +28,8 @@ public class OrderToOrderDtoConverter implements Converter<Order, OrderDto> {
                 .orderItemsDto(conversionService.convert(source.getOrderItems(), OrderItemDto.class))
                 .state(source.getState().toString())
                 .total(source.getTotal())
+                .earnedBonuses(source.getEarnedBonuses())
+                .usedBonuses(source.getUsedBonuses())
                 .build();
     }
 }

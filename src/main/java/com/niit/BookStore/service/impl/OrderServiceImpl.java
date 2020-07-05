@@ -18,9 +18,14 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -62,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
             item.setCount(item.getCount()+orderItem.getCount());
         }
 
+        order.getPerson().setBonus(order.getPerson().getBonus()+order.getUsedBonuses());
+        order.setUsedBonuses(0);
         order.setState(OrderState.CANCELED);
 
         return conversionService.convert(order, OrderDto.class);
@@ -77,6 +84,8 @@ public class OrderServiceImpl implements OrderService {
                     order.getState()));
         }
 
+        order.getPerson().setBonus(order.getPerson().getBonus()+order.getEarnedBonuses());
+
         order.setState(OrderState.COMPLETED);
 
         return conversionService.convert(order, OrderDto.class);
@@ -88,8 +97,10 @@ public class OrderServiceImpl implements OrderService {
                 .person(cart.getPerson())
                 .address(cart.getPerson().getAddress())
                 .placedOn(LocalDateTime.now())
+                .earnedBonuses(0)
+                .usedBonuses(0)
                 .build();
-
+        //Create OrderItems object to make the order
         BigDecimal orderPrice = new BigDecimal(0);
         Set<OrderItem> orderItemSet = new HashSet<>();
         for (Item item : cart.getItems()) {
@@ -104,14 +115,34 @@ public class OrderServiceImpl implements OrderService {
             }
             item.setCount(item.getCount()-1);
 
+            //Get Item price with discount
             orderItem.setPrice(promoService.getItemPriseWithDiscount(cart.getPromo(), item, cart.getPerson()));
 
             orderPrice = orderPrice.add(orderItem.getPrice());
             orderItemSet.add(orderItem);
         }
         newOrder.setOrderItems(orderItemSet);
-
+        //Set total price
         newOrder.setTotal(orderPrice);
+
+        //Try to apply bonuses from cart
+        Integer cartBonuses = cart.getAppliedBonuses();
+        if(Objects.nonNull(cartBonuses) && cartBonuses > 0){
+            Integer personBonuses = cart.getPerson().getBonus();
+            Integer minAvailableBonuses = Collections.min(
+                    new ArrayList<>(
+                            Arrays.asList(cartBonuses, newOrder.getTotal().intValue(), personBonuses)));
+            newOrder.setUsedBonuses(minAvailableBonuses);
+            cart.getPerson().setBonus(personBonuses-minAvailableBonuses);
+        }
+        // Calculate new bonuses for order
+        // TODO: Now '%' of bonuses is hardcoded  and equal to 5%. try to find where is better to store this value
+        Integer earnedBonuses = newOrder.getTotal()
+                .subtract(new BigDecimal(newOrder.getUsedBonuses()))
+                .multiply(new BigDecimal(5))
+                .divide(new BigDecimal(100), RoundingMode.UP).intValue();
+        newOrder.setEarnedBonuses(earnedBonuses);
+
         orderRepository.save(newOrder);
         return conversionService.convert(newOrder, OrderDto.class);
     }

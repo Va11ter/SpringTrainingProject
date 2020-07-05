@@ -28,4 +28,9 @@ public class OrderDto implements Serializable {
     private String state;
     @JsonProperty("total_price")
     private BigDecimal total;
+    @JsonProperty("used_bonuses")
+    private Integer usedBonuses;
+    @JsonProperty("earned_bonuses")
+    private Integer earnedBonuses;
+
 }

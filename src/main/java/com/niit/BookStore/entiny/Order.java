@@ -20,8 +20,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"person", "address", "orderItems"})
-@EqualsAndHashCode(exclude = {"person", "address", "orderItems"}, callSuper = true)
+@ToString(exclude = {"person", "address", "orderItems", "usedBonuses", "earnedBonuses"})
+@EqualsAndHashCode(exclude = {"person", "address", "orderItems", "usedBonuses", "earnedBonuses"}, callSuper = true)
 public class Order extends EntityBase {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -43,6 +43,15 @@ public class Order extends EntityBase {
 
     @Column(name = "placed_on")
     private LocalDateTime placedOn;
+
+    @Builder.Default
+    @Column(name = "used_bonuses")
+    private Integer usedBonuses = 0;
+
+    @Builder.Default
+    @Column(name = "earned_bonuses")
+    private Integer earnedBonuses = 0;
+
 
     public void addOrderItem(OrderItem orderItem){
         orderItems.add(orderItem);

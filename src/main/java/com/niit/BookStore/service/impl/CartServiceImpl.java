@@ -1,10 +1,12 @@
 package com.niit.BookStore.service.impl;
 
+import com.niit.BookStore.dto.CartBonusDto;
 import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.entiny.Item;
 import com.niit.BookStore.entiny.Person;
 import com.niit.BookStore.entiny.Promo;
+import com.niit.BookStore.exception.AddBonusesToCartException;
 import com.niit.BookStore.exception.AddPromoToCartException;
 import com.niit.BookStore.exception.ItemNotFoundException;
 import com.niit.BookStore.repository.CartRepository;
@@ -129,5 +131,31 @@ public class CartServiceImpl implements CartService {
         Cart cart = getPersonCart(person_id);
         cart.setPromo(null);
         return conversionService.convert(cart, CartDto.class);
+    }
+
+    @Override
+    public CartBonusDto applyBonuses(Long person_id, CartBonusDto cartBonusDto){
+        Cart cart = getPersonCart(person_id);
+        if(Objects.isNull(cartBonusDto.getBonuses()) || cartBonusDto.getBonuses() < 0){
+            throw new AddBonusesToCartException("Wrong number of bonuses were provided, please check your request");
+        }
+        Person person = cart.getPerson();
+        if (person.getBonus()<cartBonusDto.getBonuses()){
+            throw new AddBonusesToCartException(
+                    String.format("Wrong number of bonuses were provided. You cannot use more than %s",person.getBonus()));
+        }
+        cart.setAppliedBonuses(cartBonusDto.getBonuses());
+        return new CartBonusDto(cartBonusDto.getBonuses());
+    }
+
+    @Override
+    public void clearBonuses(Long person_id){
+        Cart cart = getPersonCart(person_id);
+        cart.setAppliedBonuses(0);
+    }
+
+    public CartBonusDto getAppliedBonuses(Long person_id){
+        Cart cart = getPersonCart(person_id);
+        return new CartBonusDto(cart.getAppliedBonuses());
     }
 }

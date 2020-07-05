@@ -1,5 +1,6 @@
 package com.niit.BookStore.service;
 
+import com.niit.BookStore.dto.CartBonusDto;
 import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.entiny.Cart;
 
@@ -17,4 +18,9 @@ public interface CartService {
 
     CartDto addPromoToCart(Long person_id, String promoName);
     CartDto deletePromoFromCart(Long person_id);
+
+    CartBonusDto applyBonuses(Long person_id, CartBonusDto cartBonusDto);
+    void clearBonuses(Long person_id);
+    CartBonusDto getAppliedBonuses(Long person_id);
+
 }

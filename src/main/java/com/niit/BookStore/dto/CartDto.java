@@ -22,4 +22,6 @@ public class CartDto implements Serializable {
     private Set<ItemDto> items;
     @JsonProperty("promo")
     private PromoDto promoDto;
+    @JsonProperty("applied_bonuses")
+    private Integer appliedBonuses;
 }

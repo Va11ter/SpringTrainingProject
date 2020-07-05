@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS cart(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     person_id INT,
     promo_id INT,
+    applied_bonuses INT default 0,
 
     FOREIGN KEY (person_id) REFERENCES
         person(id),

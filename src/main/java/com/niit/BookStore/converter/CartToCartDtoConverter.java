@@ -22,6 +22,7 @@ public class CartToCartDtoConverter implements Converter<Cart, CartDto> {
                 .id(source.getId())
                 .items(customConversionService.convert(source.getItems(), ItemDto.class))
                 .promoDto(customConversionService.convert(source.getPromo(), PromoDto.class))
+                .appliedBonuses(source.getAppliedBonuses())
                 .build();
     }
 }

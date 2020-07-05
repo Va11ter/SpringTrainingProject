@@ -12,8 +12,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"items", "promo"})
-@EqualsAndHashCode(exclude = {"items", "promo"}, callSuper = true)
+@ToString(exclude = {"items", "promo", "appliedBonuses"})
+@EqualsAndHashCode(exclude = {"items", "promo", "appliedBonuses"}, callSuper = true)
 public class Cart extends EntityBase{
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -28,6 +28,10 @@ public class Cart extends EntityBase{
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="promo_id")
     private Promo promo;
+
+    @Builder.Default
+    @Column(name = "applied_bonuses")
+    private Integer appliedBonuses=0;
 
     public void addItem(Item item){
         items.add(item);

@@ -1,10 +1,12 @@
 package com.niit.BookStore.controller;
 
+import com.niit.BookStore.dto.CartBonusDto;
 import com.niit.BookStore.dto.CartDto;
 import com.niit.BookStore.dto.OrderDto;
 import com.niit.BookStore.dto.PromoAddToCartDto;
 import com.niit.BookStore.entiny.Cart;
 import com.niit.BookStore.entiny.Item;
+import com.niit.BookStore.exception.AddBonusesToCartException;
 import com.niit.BookStore.exception.AddPromoToCartException;
 import com.niit.BookStore.exception.AddressNotSpecifiedAppException;
 import com.niit.BookStore.exception.CartIsEmptyAppException;
@@ -72,5 +74,23 @@ public class CartController {
     @DeleteMapping(value = "/promo")
     public CartDto deletePromoFromCard(@RequestHeader(name = "user_id") Long person_id){
         return cartService.deletePromoFromCart(person_id);
+    }
+
+    @PostMapping(value = "/bonus")
+    public CartBonusDto applyBonuses(@RequestHeader(name = "user_id") Long person_id, @RequestBody CartBonusDto cartBonusDto){
+        if(Objects.isNull(cartBonusDto)){
+            throw new AddBonusesToCartException("Please specify number of bonuses to apply");
+        }
+        return cartService.applyBonuses(person_id, cartBonusDto);
+    }
+
+    @DeleteMapping(value = "/bonus")
+    public void clearAppliedBonuses(@RequestHeader(name = "user_id") Long person_id){
+        cartService.clearBonuses(person_id);
+    }
+
+    @GetMapping(value = "/bonus")
+    public CartBonusDto getAppliedBonuses(@RequestHeader(name = "user_id") Long person_id){
+        return cartService.getAppliedBonuses(person_id);
     }
 }

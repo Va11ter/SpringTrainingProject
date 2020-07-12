@@ -5,6 +5,7 @@ import com.niit.BookStore.dto.ItemDto;
 import com.niit.BookStore.service.CartService;
 import com.niit.BookStore.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,24 +22,21 @@ public class ItemController extends BaseController{
         this.cartService = cartService;
     }
 
-    @GetMapping(value = "/{id}")
-    public ItemDto getItemById(@PathVariable("id") Long id){
-        return itemService.getItemById(id);
-    }
-
     @PostMapping
+    @PreAuthorize(value =  "hasRole('ADMIN') || hasRole('SUPERVISOR')")
     public ItemDto createItem(@RequestBody ItemDto itemDto){
         return itemService.createItem(itemDto);
     }
 
     @PutMapping(value = "/{id}")
+    @PreAuthorize(value =  "hasRole('ADMIN') || hasRole('SUPERVISOR')")
     public ItemDto updateItem(@PathVariable("id") Long id, @RequestBody ItemDto itemDto){
         return itemService.updateItem(id, itemDto);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void deleteItem(@PathVariable Long id){
-        itemService.deleteItem(id);
+    @GetMapping(value = "/{id}")
+    public ItemDto getItemById(@PathVariable("id") Long id){
+        return itemService.getItemById(id);
     }
 
     @GetMapping

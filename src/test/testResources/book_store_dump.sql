@@ -153,7 +153,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` (`id`, `name`, `price`, `description`, `count`) VALUES (1,'NewItem Super-mega-items4',200,'Some very importnant description',17),(2,'NewItem2',100,'Some very important description2',0),(3,'The best NewItem2',100,'Some very important description5',5),(4,'Telephone S1',100,'Some very important description5',12),(5,'Telephone S2',200,'Some very important description5',15),(6,'Telephone S3',300,'Some very important description5',14),(7,'Telephone S4',400,'Some very important description5',13),(8,'NewItem Super-mega-items25',100,'Some very importnant description',6),(9,'NewItem Super-mega-items25',100,'Some very importnant description',6),(10,'NewItem Super-mega-items25',100,'Some very importnant description',6),(11,'NewItem Super-mega-items25',100,'Some very importnant description',6),(12,'NewItem Super-mega-items25',100,'Some very importnant description',6);
+INSERT INTO `item` (`id`, `name`, `price`, `description`, `count`) VALUES (1,'NewItem Super-mega-items4',210,'Some very importnant description',17),(2,'NewItem2',100,'Some very important description2',0),(3,'The best NewItem2',100,'Some very important description5',5),(4,'Telephone S1',100,'Some very important description5',12),(5,'Telephone S2',200,'Some very important description5',15),(6,'Telephone S3',300,'Some very important description5',14),(7,'Telephone S4',400,'Some very important description5',13),(8,'NewItem Super-mega-items25',100,'Some very importnant description',6),(9,'NewItem Super-mega-items25',100,'Some very importnant description',6),(10,'NewItem Super-mega-items25',100,'Some very importnant description',6),(11,'NewItem Super-mega-items25',100,'Some very importnant description',6),(12,'NewItem Super-mega-items25',100,'Some very importnant description',6);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,11 +266,13 @@ CREATE TABLE `person` (
   `email` varchar(50) DEFAULT NULL,
   `address_id` int DEFAULT NULL,
   `bonus` int DEFAULT '0',
+  `password` varchar(128) NOT NULL,
+  `role` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uniq_email` (`email`),
   KEY `address_id` (`address_id`),
   CONSTRAINT `person_ibfk_1` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,7 +281,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `address_id`, `bonus`) VALUES (1,'First','Fourth_last','First@mail.com',1,50),(2,'Second2','Second_last3','new_name1@mail.com',2,53),(3,'Second2','Second_last3','last_name2@mail.com',3,50),(4,'first_name3','last_name3','last_name3@mail.com',NULL,50),(5,'FN_other','Second_last','FN_other@mail.com',NULL,50),(6,'FN_six','Second_last','FN_six@mail.com',NULL,50),(7,'FN_seven','Second_last','FN_seven@mail.com',NULL,50),(8,'FN_nine','Second_last','FN_nine@mail.com',NULL,50),(11,'Second23','Second_last33','new_name12@mail.com',NULL,50);
+INSERT INTO `person` (`id`, `first_name`, `last_name`, `email`, `address_id`, `bonus`, `password`, `role`) VALUES (1,'First','Fourth_last','first@mail.com',1,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(2,'Second2','Second_last3','new_name1@mail.com',2,53,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(3,'Second2','Second_last3','last_name2@mail.com',3,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(4,'first_name3','last_name3','last_name3@mail.com',NULL,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(5,'FN_other','Second_last','fn_other@mail.com',NULL,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(6,'FN_six','Second_last','fn_six@mail.com',NULL,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(7,'FN_seven','Second_last','fn_seven@mail.com',NULL,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(8,'FN_nine','Second_last','fn_nine@mail.com',NULL,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(11,'Second23','Second_last33','new_name12@mail.com',NULL,50,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(12,NULL,NULL,'email@email.com',NULL,0,'$2a$10$rfPNQj/IP.syuY1GcmOnaeeZOSvLLZ4AzeNuBoMa1kp.eaLcQ9IWi','USER'),(20,NULL,NULL,'admin@email.com',NULL,0,'$2a$10$A12HPO0tabAxdC.M37sU/eMgDKZ4UJIdEkQR9GdjaCB5A99IT6eiq','ADMIN'),(21,NULL,NULL,'supervisor@email.com',NULL,0,'$2a$10$4a2d5GQgTUMPbjItHVg6beSQYGtnFyPtV3o7FbeiAco.urCVIQGoi','USER');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -381,4 +383,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-05 21:41:18
+-- Dump completed on 2020-07-12 18:54:44

@@ -8,6 +8,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 public class SignUpDtoToPersonConverter implements Converter<SignUpDto, Person> {
     private final PasswordEncoder passwordEncoder;
@@ -18,10 +20,14 @@ public class SignUpDtoToPersonConverter implements Converter<SignUpDto, Person> 
     }
 
     @Override
-    public Person convert(SignUpDto signUpDto) {
-        Person person = new Person();
-        person.setEmail(signUpDto.getEmail().toLowerCase());
-        person.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
-        return person;
+    public Person convert(SignUpDto source) {
+        String email = source.getEmail();
+        if(Objects.nonNull(email)){
+            email = email.toLowerCase();
+        }
+        return Person.builder()
+                .email(email)
+                .password(source.getPassword())
+                .build();
     }
 }

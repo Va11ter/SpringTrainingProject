@@ -11,7 +11,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"address", "wishListItems"})
+@ToString(exclude = {"address", "wishListItems", "password"})
 @EqualsAndHashCode(exclude = {"address", "wishListItems"}, callSuper = true)
 public class Person extends EntityBase {
     @Column(name = "first_name")
@@ -21,6 +21,8 @@ public class Person extends EntityBase {
     private String email;
     @Builder.Default
     private Integer bonus = 0;
+    @Column(name = "password")
+    private String password;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="address_id", referencedColumnName = "id")

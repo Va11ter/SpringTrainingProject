@@ -29,10 +29,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(person)){
             return null;
         }
-        return new User(
+        return new StoreUser(
                 person.getEmail(),
                 person.getPassword(),
-                Collections.singletonList(() -> "ROLE_ADMIN")
+                Collections.singletonList(() -> "ROLE_ADMIN"),
+                person.getId()
         );
     }
 }

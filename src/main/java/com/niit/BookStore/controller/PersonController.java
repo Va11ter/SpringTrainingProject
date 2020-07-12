@@ -3,14 +3,13 @@ package com.niit.BookStore.controller;
 import com.niit.BookStore.dto.PersonDto;
 import com.niit.BookStore.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/persons")
-public class PersonController {
+public class PersonController extends BaseController{
     private final PersonService personService;
 
     @Autowired
@@ -39,6 +38,11 @@ public class PersonController {
     @GetMapping
     public List<PersonDto> getAll(){
         return personService.getAll();
+    }
+
+    @GetMapping(value = "/info")
+    public PersonDto getPersonInfo(){
+        return personService.getPersonById(getUserIdFromSecurityContext());
     }
 
 }

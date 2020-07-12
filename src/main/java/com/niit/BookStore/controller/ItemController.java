@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/items")
-public class ItemController {
+public class ItemController extends BaseController{
     private ItemService itemService;
     private CartService cartService;
 
@@ -47,7 +47,7 @@ public class ItemController {
     }
 
     @PostMapping(path = "/{item_id}/to_cart")
-    public CartDto addItemToCart(@RequestHeader(name = "user_id") Long person_id, @PathVariable("item_id") Long item_id){
-        return cartService.addItem(person_id, item_id);
+    public CartDto addItemToCart(@PathVariable("item_id") Long item_id){
+        return cartService.addItem(getUserIdFromSecurityContext(), item_id);
     }
 }

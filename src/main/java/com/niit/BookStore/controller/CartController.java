@@ -13,14 +13,22 @@ import com.niit.BookStore.exception.CartIsEmptyAppException;
 import com.niit.BookStore.service.CartService;
 import com.niit.BookStore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/cart")
-public class CartController {
+public class CartController extends BaseController{
     private final CartService cartService;
     private final OrderService orderService;
 
@@ -31,23 +39,23 @@ public class CartController {
     }
 
     @GetMapping
-    public CartDto getPersonCart(@RequestHeader(name = "user_id") Long person_id){
-        return cartService.getPersonCartByPersonId(person_id);
+    public CartDto getPersonCart() {
+        return cartService.getPersonCartByPersonId(getUserIdFromSecurityContext());
     }
 
     @PutMapping
-    public CartDto updateCart(@PathVariable("id") Long id, @RequestBody CartDto cartDto){
+    public CartDto updateCart(@PathVariable("id") Long id, @RequestBody CartDto cartDto) {
         return cartService.updateCart(id, cartDto);
     }
 
     @DeleteMapping
-    public void deleteCart(@RequestHeader(name = "user_id") Long person_id){
-        cartService.clearCart(person_id);
+    public void deleteCart() {
+        cartService.clearCart(getUserIdFromSecurityContext());
     }
 
     @PostMapping("/order")
-    public OrderDto makeOrder(@RequestHeader(name = "user_id") Long person_id){
-        Cart cart = cartService.getPersonCart(person_id);
+    public OrderDto makeOrder() {
+        Cart cart = cartService.getPersonCart(getUserIdFromSecurityContext());
 
         if (Objects.isNull(cart.getPerson().getAddress())) {
             throw new AddressNotSpecifiedAppException();
@@ -58,39 +66,40 @@ public class CartController {
             throw new CartIsEmptyAppException("Cart is empty. Please put something to you cart, before making order.");
         }
 
-        OrderDto newOrderDto =  orderService.makeOrder(cart);
+        OrderDto newOrderDto = orderService.makeOrder(cart);
         cartService.clearCart(cart);
         return newOrderDto;
     }
 
     @PostMapping(value = "/promo")
-    public CartDto addPromoToCart(@RequestHeader(name = "user_id") Long person_id, @RequestBody PromoAddToCartDto promoAddToCartDto){
-        if(Objects.isNull(promoAddToCartDto.getPromoCode())){
+    public CartDto addPromoToCart(@RequestBody PromoAddToCartDto promoAddToCartDto) {
+
+        if (Objects.isNull(promoAddToCartDto.getPromoCode())) {
             throw new AddPromoToCartException("Promo name isn't specified.");
         }
-        return cartService.addPromoToCart(person_id, promoAddToCartDto.getPromoCode());
+        return cartService.addPromoToCart(getUserIdFromSecurityContext(), promoAddToCartDto.getPromoCode());
     }
 
     @DeleteMapping(value = "/promo")
-    public CartDto deletePromoFromCard(@RequestHeader(name = "user_id") Long person_id){
-        return cartService.deletePromoFromCart(person_id);
+    public CartDto deletePromoFromCard() {
+        return cartService.deletePromoFromCart(getUserIdFromSecurityContext());
     }
 
     @PostMapping(value = "/bonus")
-    public CartBonusDto applyBonuses(@RequestHeader(name = "user_id") Long person_id, @RequestBody CartBonusDto cartBonusDto){
-        if(Objects.isNull(cartBonusDto)){
+    public CartBonusDto applyBonuses(@RequestBody CartBonusDto cartBonusDto) {
+        if (Objects.isNull(cartBonusDto)) {
             throw new AddBonusesToCartException("Please specify number of bonuses to apply");
         }
-        return cartService.applyBonuses(person_id, cartBonusDto);
+        return cartService.applyBonuses(getUserIdFromSecurityContext(), cartBonusDto);
     }
 
     @DeleteMapping(value = "/bonus")
-    public void clearAppliedBonuses(@RequestHeader(name = "user_id") Long person_id){
-        cartService.clearBonuses(person_id);
+    public void clearAppliedBonuses() {
+        cartService.clearBonuses(getUserIdFromSecurityContext());
     }
 
     @GetMapping(value = "/bonus")
-    public CartBonusDto getAppliedBonuses(@RequestHeader(name = "user_id") Long person_id){
-        return cartService.getAppliedBonuses(person_id);
+    public CartBonusDto getAppliedBonuses() {
+        return cartService.getAppliedBonuses(getUserIdFromSecurityContext());
     }
 }

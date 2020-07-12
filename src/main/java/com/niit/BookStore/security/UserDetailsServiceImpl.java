@@ -4,7 +4,6 @@ import com.niit.BookStore.entiny.Person;
 import com.niit.BookStore.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +15,7 @@ import java.util.Objects;
 @Service
 @Qualifier("customUserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+    private static String ROLE_PREFIX = "ROLE_%s";
     private final PersonRepository personRepository;
 
     @Autowired
@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new StoreUser(
                 person.getEmail(),
                 person.getPassword(),
-                Collections.singletonList(() -> "ROLE_ADMIN"),
+                Collections.singletonList(() -> String.format(ROLE_PREFIX, person.getRole().toString())),
                 person.getId()
         );
     }

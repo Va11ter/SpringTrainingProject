@@ -1,17 +1,20 @@
 package com.niit.BookStore.security;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class JwtRequest implements Serializable {
     private String email;
     private String password;
 
     public String getEmail() {
-        return email;
+        return Objects.isNull(email) ? email: email.toLowerCase();
     }
 
-    public void setEmail(String username) {
-        this.email = username;
+    public void setEmail(String email) {
+        if(Objects.nonNull(email)) {
+            this.email = email.toLowerCase();
+        }
     }
 
     public String getPassword() {

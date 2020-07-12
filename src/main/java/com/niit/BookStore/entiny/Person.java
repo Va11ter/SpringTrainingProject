@@ -1,5 +1,6 @@
 package com.niit.BookStore.entiny;
 
+import com.niit.BookStore.entiny.enums.PersonRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,11 @@ public class Person extends EntityBase {
     private Integer bonus = 0;
     @Column(name = "password")
     private String password;
+
+    @Column(name="role")
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private PersonRole role=PersonRole.USER;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="address_id", referencedColumnName = "id")

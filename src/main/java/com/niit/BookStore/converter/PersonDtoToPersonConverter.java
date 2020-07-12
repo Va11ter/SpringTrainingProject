@@ -13,7 +13,7 @@ public class PersonDtoToPersonConverter implements Converter<PersonDto, Person> 
     @Override
     public Person convert(PersonDto source) {
         return Person.builder()
-                .email(source.getEmail())
+                .email(source.getEmail().toLowerCase())
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .build();

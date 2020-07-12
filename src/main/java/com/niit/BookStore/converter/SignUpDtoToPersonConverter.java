@@ -20,7 +20,7 @@ public class SignUpDtoToPersonConverter implements Converter<SignUpDto, Person> 
     @Override
     public Person convert(SignUpDto signUpDto) {
         Person person = new Person();
-        person.setEmail(signUpDto.getEmail());
+        person.setEmail(signUpDto.getEmail().toLowerCase());
         person.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
         return person;
     }

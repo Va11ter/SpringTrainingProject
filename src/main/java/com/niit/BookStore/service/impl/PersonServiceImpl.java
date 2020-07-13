@@ -34,13 +34,6 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto createPerson(PersonDto personDto) {
-        Person person = conversionService.convert(personDto, Person.class);
-        personRepository.save(person);
-        return conversionService.convert(person, PersonDto.class);
-    }
-
-    @Override
     public PersonDto updatePerson(Long id, PersonDto personDto) {
         Person person = personRepository.findById(personDto.getId()).orElseThrow(
                 ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));

@@ -55,9 +55,6 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<PersonDto> getAll() {
         List<Person> persons = personRepository.findAll();
-        return persons
-                .stream()
-                .map((Person person) -> conversionService.convert(person, PersonDto.class))
-                .collect(Collectors.toList());
+        return conversionService.convert(persons, PersonDto.class);
     }
 }

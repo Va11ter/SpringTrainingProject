@@ -35,7 +35,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDto updatePerson(Long id, PersonDto personDto) {
-        Person person = personRepository.findById(personDto.getId()).orElseThrow(
+        Person person = personRepository.findById(id).orElseThrow(
                 ()-> new ItemNotFoundException(NOT_FOUND_EXCEPTION_MESSAGE));
         person.setLastName(personDto.getLastName());
         person.setFirstName(personDto.getFirstName());

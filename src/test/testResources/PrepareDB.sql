@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS person(
     email VARCHAR(50),
     address_id INT,
     bonus INT DEFAULT 0,
+    password VARCHAR(128) NOT NULL,
+    role varchar(10),
 
     CONSTRAINT uniq_email UNIQUE (email),
 

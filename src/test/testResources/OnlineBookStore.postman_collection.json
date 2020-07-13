@@ -641,19 +641,102 @@
 			"name": "BuyFlow",
 			"item": [
 				{
+					"name": "AuthenticateUser 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "681dc5b4-4148-421a-8c75-e2eb33510d29",
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"token\", jsonData.token);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"new_name1@mail.com\",\n\"password\": \"password\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/authenticate",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "getPersonById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/persons/2",
+							"raw": "localhost:8080/persons/4",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"persons",
-								"2"
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPersonInfo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/persons/info",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"info"
 							]
 						}
 					},
@@ -662,6 +745,16 @@
 				{
 					"name": "GetPersonCart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -686,6 +779,16 @@
 				{
 					"name": "Clear Cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -728,6 +831,16 @@
 				{
 					"name": "Add Item 1 to cart",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -819,12 +932,12 @@
 							{
 								"key": "user_id",
 								"type": "text",
-								"value": "1"
+								"value": "2"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"bonuses\": 5}",
+							"raw": "{\"bonuses\": 10}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -931,22 +1044,234 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "getAllPersons",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/persons",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"persons"
-					]
+			"name": "Auth",
+			"item": [
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"SuPerVisor@email.com\",\n\"password\": \"password\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/signUp",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPromoToCart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"promo_code\": \"JulyDay\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cart/promo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cart",
+								"promo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"email@email.com\",\n\"password\": \"password\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/authenticate",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "AdminRequests",
+			"item": [
+				{
+					"name": "Authenticate Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "56cce815-0700-4545-8365-cf6db73ccb6a",
+								"exec": [
+									"pm.test(\"Your test name\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.environment.set(\"token_admin\", jsonData.token);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"admin@email.com\",\n\"password\": \"password\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/authenticate",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPersons",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/persons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPersonById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token_admin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/persons/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/persons/2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlbWFpbDFAZW1haWwuY29tIiwiZXhwIjoxNTk0NTc2MzI0LCJpYXQiOjE1OTQ1NTgzMjR9.mTK11f9SgE_SIsYlQU7_icczL-Wb1VpVUPQNrcag31Yxm1PjCpR4yJRY_fg0hyz5wv0kFfiqMCnzUOE5vsIlXg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/persons/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"persons",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "getAllAddresses",
@@ -979,25 +1304,6 @@
 					"port": "8080",
 					"path": [
 						"addresses",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getPersonById",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/persons/2",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"persons",
 						"2"
 					]
 				}

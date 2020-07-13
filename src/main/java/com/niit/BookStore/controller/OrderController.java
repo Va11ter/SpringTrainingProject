@@ -3,6 +3,7 @@ package com.niit.BookStore.controller;
 import com.niit.BookStore.dto.OrderDto;
 import com.niit.BookStore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class OrderController {
     }
 
     @PutMapping(value = "/{id}/complete")
+    @PreAuthorize(value =  "hasRole('ADMIN') || hasRole('SUPERVISOR')")
     public OrderDto completeOrder(@PathVariable("id") Long id){
         return orderService.completeOrder(id);
     }

@@ -1,5 +1,6 @@
 package com.niit.BookStore.entiny;
 
+import com.niit.BookStore.entiny.enums.PersonRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"address", "wishListItems"})
+@ToString(exclude = {"address", "wishListItems", "password"})
 @EqualsAndHashCode(exclude = {"address", "wishListItems"}, callSuper = true)
 public class Person extends EntityBase {
     @Column(name = "first_name")
@@ -21,6 +22,13 @@ public class Person extends EntityBase {
     private String email;
     @Builder.Default
     private Integer bonus = 0;
+    @Column(name = "password")
+    private String password;
+
+    @Column(name="role")
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private PersonRole role=PersonRole.USER;
 
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="address_id", referencedColumnName = "id")
